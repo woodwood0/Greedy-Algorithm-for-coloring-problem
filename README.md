@@ -19,6 +19,6 @@
 
 ### 檔案說明
 - 輸入資料 : 編碼方式如圖。<br>
-![圖片1](https://github.com/woodwood0/Greedy-Algorithm-for-coloring-problem/assets/171545924/aa21033a-3bff-422c-9168-e998a00c3806)
+![圖片1](https://github.com/woodwood0/Greedy-Algorithm-for-coloring-problem/assets/171545924/a8531f04-19cc-4a68-bae1-046c96b90055)
 <br>
 <br>
