@@ -18,13 +18,13 @@ struct GraphData
 	double START, END;
 };
 
-void add_edge(list<int> adj_list[], int u, int v)       //«Ø¥ßadjlist
+void add_edge(vector<int> adj_list[], int u, int v)       //«Ø¥ßadjlist
 {
 	adj_list[u].push_back(v);
 	adj_list[v].push_back(u);
 }
 
-void sorting(list<int> adj_list[], int v, GraphData& data)               //§ä¥X³Ìªøªºlist
+void sorting(vector<int> adj_list[], int v, GraphData& data)               //§ä¥X³Ìªøªºlist
 {
 	data.START = clock();
 	int iy, max = 0;
@@ -39,9 +39,9 @@ void sorting(list<int> adj_list[], int v, GraphData& data)               //§ä¥X³
 		<< "'s size is max=" << max << endl;
 }
 
-void processNode(list<int> adj_list[], int i, int v, int* result, bool* available)	//´£¨ú­ì¥ý¦b greedyColoring()¤¤­«½Æªºµ{¦¡½X
+void processNode(vector<int> adj_list[], int i, int v, int* result, bool* available)	//´£¨ú­ì¥ý¦b greedyColoring()¤¤­«½Æªºµ{¦¡½X
 {
-	list<int>::iterator it;                  //±N¬Û¾F¸`ÂIªºÃC¦â¼Ð°O¬°¤£¥i¥Î
+	vector<int>::iterator it;                  //±N¬Û¾F¸`ÂIªºÃC¦â¼Ð°O¬°¤£¥i¥Î
 	for (it = adj_list[i].begin(); it != adj_list[i].end(); ++it)
 	{
 		if (result[*it] != -1)
@@ -66,11 +66,11 @@ void processNode(list<int> adj_list[], int i, int v, int* result, bool* availabl
 	}
 }
 
-void greedyColoring(list<int> adj_list[], int v, int nodeiy, GraphData& data)         //¥Î³g¤ßºtºâªk¤W¦â
+void greedyColoring(vector<int> adj_list[], int v, int nodeiy, GraphData& data, int* result, bool* available)         //¥Î³g¤ßºtºâªk¤W¦â
 {
 	data.START = clock();
-	int* result = new int[v + 1];
-	bool* available = new bool[v + 1];
+	//int* result = new int[v + 1];
+	//bool* available = new bool[v + 1];
 
 	for (int k = 1; k <= v; k++)
 	{
@@ -105,9 +105,7 @@ void greedyColoring(list<int> adj_list[], int v, int nodeiy, GraphData& data)   
 	cout << "¦@" << color << "ºØÃC¦â" << endl << endl;
 	data.END = clock();
 
-	delete[] result;								//ÄÀ©ñ°ÊºA¤À°t°O¾ÐÅé
-	delete[] available;
-
+	
 }
 
 int main()
@@ -155,7 +153,7 @@ int main()
 
 		int v = num;
 
-		list<int>* adj_list = new list<int>[v + 1];
+		vector<int>* adj_list = new vector<int>[v + 1];
 
 		while (!inf.eof())                  //Åª²Ä¤T¦æ¥H«á
 		{
@@ -182,16 +180,22 @@ int main()
 				mode = 0;
 		} while (mode == 0);
 
+		int* result = new int[v + 1];
+		bool* available = new bool[v + 1];
+
 		if (mode == 1) {
 			cout << endl << "µÛ¦âµ²ªG---->" << endl;
-			greedyColoring(adj_list, v, 0, data);
+			greedyColoring(adj_list, v, 0, data, result, available);
 		}
 		if (mode == 2) {
 			cout << endl << "µÛ¦âµ²ªG---->" << endl;
 			sorting(adj_list, v, data);
-			greedyColoring(adj_list, v, data.nodeiy, data);
+			greedyColoring(adj_list, v, data.nodeiy, data, result, available);
 		}
 
+		delete[] result;								//ÄÀ©ñ°ÊºA¤À°t°O¾ÐÅé
+		delete[] available;
+		delete[] adj_list;
 
 		cout << endl << "¶i¦æ¹Bºâ©Òªá¶Oªº®É¶¡¡G"		//­pºâ°õ¦æ®É¶¡
 			<< (data.END - data.START) / CLOCKS_PER_SEC << " S" << endl;
