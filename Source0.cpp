@@ -13,14 +13,14 @@
 using namespace std;
 
 
-void add_edge(list<int> adj_list[], int u, int v)       //«Ø¥ßadjlist
+void add_edge(list<int> adj_list[], int u, int v)       //å»ºç«‹adjlist
 {
 	adj_list[u].push_back(v);
 	adj_list[v].push_back(u);
 }
 static int nodeiy;
 static double START,END;
-void sorting(list<int> adj_list[], int v)               //§ä¥X³Ìªøªºlist
+void sorting(list<int> adj_list[], int v)               //æ‰¾å‡ºæœ€é•·çš„list
 {
 	START = clock();
 	int iy, max = 0;
@@ -34,7 +34,7 @@ void sorting(list<int> adj_list[], int v)               //§ä¥X³Ìªøªºlist
 	cout << "Node " << nodeiy
 		<< "'s size is max=" << max << endl;
 }
-void greedyColoring(list<int> adj_list[], int v, int nodeiy)         //¥Î³g¤ßºtºâªk¤W¦â
+void greedyColoring(list<int> adj_list[], int v, int nodeiy)         //ç”¨è²ªå¿ƒæ¼”ç®—æ³•ä¸Šè‰²
 {
 	START = clock();
 	int* result;
@@ -54,7 +54,7 @@ void greedyColoring(list<int> adj_list[], int v, int nodeiy)         //¥Î³g¤ßºtº
 	if (nodeiy == 0) {
 		for (int i = 1; i <= v; i++)
 		{
-			list<int>::iterator it;                  //±N¬Û¾F¸`ÂIªºÃC¦â¼Ğ°O¬°¤£¥i¥Î
+			list<int>::iterator it;                  //å°‡ç›¸é„°ç¯€é»çš„é¡è‰²æ¨™è¨˜ç‚ºä¸å¯ç”¨
 			for (it = adj_list[i].begin(); it != adj_list[i].end(); ++it)
 			{
 				if (result[*it] != -1)
@@ -63,7 +63,7 @@ void greedyColoring(list<int> adj_list[], int v, int nodeiy)         //¥Î³g¤ßºtº
 				}
 			}
 
-			int cr;                                  //´M§ä¨Ã¶î¤W²Ä¤@­Ó¥i¥ÎªºÃC¦â
+			int cr;                                  //å°‹æ‰¾ä¸¦å¡—ä¸Šç¬¬ä¸€å€‹å¯ç”¨çš„é¡è‰²
 			for (cr = 1; cr <= v; cr++)
 			{
 				if (available[cr] == false)
@@ -71,7 +71,7 @@ void greedyColoring(list<int> adj_list[], int v, int nodeiy)         //¥Î³g¤ßºtº
 			}
 
 			result[i] = cr;
-	   												 //±NÃC¦â­«³]¬°¥i¥Î
+	   												 //å°‡é¡è‰²é‡è¨­ç‚ºå¯ç”¨
 			for (it = adj_list[i].begin(); it != adj_list[i].end(); ++it)
 			{
 				if (result[*it] != -1)
@@ -82,7 +82,7 @@ void greedyColoring(list<int> adj_list[], int v, int nodeiy)         //¥Î³g¤ßºtº
 	if (nodeiy != 0) {
 		for (int i = 1; i <= v; i++)
 		{
-			result[nodeiy] = 1;                      //±N³sµ²³Ì¦hªº¬Y¸`ÂI¶î¤W²Ä¤@¦â
+			result[nodeiy] = 1;                      //å°‡é€£çµæœ€å¤šçš„æŸç¯€é»å¡—ä¸Šç¬¬ä¸€è‰²
 			list<int>::iterator it;
 			for (it = adj_list[i].begin(); it != adj_list[i].end(); ++it)
 				if (result[*it] != -1)
@@ -102,22 +102,22 @@ void greedyColoring(list<int> adj_list[], int v, int nodeiy)         //¥Î³g¤ßºtº
 		cout << result[nodeiy] << endl;
 	}
 	
-	int color = 0;									//¿é¥Xµ²ªG
+	int color = 0;									//è¼¸å‡ºçµæœ
 	for (int i = 1; i <= v; i++)
 	{
 		if (result[i] > color) {
 			color = result[i];
 		}
 	}
-	cout << "¦@" << color << "ºØÃC¦â" << endl << endl;
+	cout << "å…±" << color << "ç¨®é¡è‰²" << endl << endl;
 	END = clock();
 
 }
 
 int main()
 {
-	cout << "­n¶}±ÒªºÀÉ¦W¬°node___--?" << endl
-		<< "(¿é¤J¼Æ¦r)" << endl;
+	cout << "è¦é–‹å•Ÿçš„æª”åç‚ºnode___--?" << endl
+		<< "(è¼¸å…¥æ•¸å­—)" << endl;
 	int num = 0;
 	cin >> num;
 
@@ -134,23 +134,23 @@ int main()
 	if (num == 10000) inf.open("node10000.txt", ios::in);
 	if (!inf)
 	{
-		cout << "µLªkÅª¤JÀÉ®×\n";
+		cout << "ç„¡æ³•è®€å…¥æª”æ¡ˆ\n";
 		system("pause");
 		return 0;
 	}
 	if (inf.is_open())
 	{
 		int numoflink = 0;
-		cout << "¶}±Ònode" << num << ".txt" << endl;
+		cout << "é–‹å•Ÿnode" << num << ".txt" << endl;
 		string line;
 
-		getline(inf, line);                 //Åª²Ä¤@¦æ
+		getline(inf, line);                 //è®€ç¬¬ä¸€è¡Œ
 		int first = line.find(':');
 		string substr = line.substr(first + 2);
 		num = atoi(substr.c_str());
 		cout << "num of nodes " << num << endl;
 
-		getline(inf, line);                 //Åª²Ä¤G¦æ
+		getline(inf, line);                 //è®€ç¬¬äºŒè¡Œ
 		first = line.find(':');
 		substr = line.substr(first + 2);
 		numoflink = atoi(substr.c_str());
@@ -161,7 +161,7 @@ int main()
 		list<int>* adj_list;
 		adj_list = new list<int>[v + 1];
 
-		while (!inf.eof())                  //Åª²Ä¤T¦æ¥H«á
+		while (!inf.eof())                  //è®€ç¬¬ä¸‰è¡Œä»¥å¾Œ
 		{
 			int p1 = 0, p2 = 0;
 			inf >> p1 >> p2;
@@ -173,9 +173,9 @@ int main()
 
 		int mode = 0;
 		do {
-			cout << endl << "(1)­n±q²Ä¤@­ÓÂI¶}©l¶î¡H" << endl
-				<< "(2)ÁÙ¬O±q³sµ²³Ì¦hªºÂI¶}©l¡H" << endl
-				<< "¿é¤J1©Î2__" << endl;
+			cout << endl << "(1)è¦å¾ç¬¬ä¸€å€‹é»é–‹å§‹å¡—ï¼Ÿ" << endl
+				<< "(2)é‚„æ˜¯å¾é€£çµæœ€å¤šçš„é»é–‹å§‹ï¼Ÿ" << endl
+				<< "è¼¸å…¥1æˆ–2__" << endl;
 			cin >> mode;
 
 			if (mode != 1 && mode != 2)
@@ -183,17 +183,17 @@ int main()
 		} while (mode == 0);
 
 		if (mode == 1) {
-			cout << endl << "µÛ¦âµ²ªG---->" << endl;
+			cout << endl << "è‘—è‰²çµæœ---->" << endl;
 			greedyColoring(adj_list, v, nodeiy);
 		}
 		if (mode == 2) {
-			cout << endl << "µÛ¦âµ²ªG---->" << endl;
+			cout << endl << "è‘—è‰²çµæœ---->" << endl;
 			sorting(adj_list, v);
 			greedyColoring(adj_list, v, nodeiy);
 		}
 
 
-		cout << endl << "¶i¦æ¹Bºâ©Òªá¶Oªº®É¶¡¡G"		//­pºâ°õ¦æ®É¶¡
+		cout << endl << "é€²è¡Œé‹ç®—æ‰€èŠ±è²»çš„æ™‚é–“ï¼š"		//è¨ˆç®—åŸ·è¡Œæ™‚é–“
 			<< (END - START) / CLOCKS_PER_SEC << " S" << endl;
 	}
 
